@@ -1,5 +1,11 @@
+import Home from './pages/Home';
+
 function App() {
-  return <div className='bg-red-400'>lotfi</div>;
+  return (
+    <div className=''>
+      <Home />
+    </div>
+  );
 }
 
 export default App;

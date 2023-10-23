@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BACKEND_URL } from '../api';
 
-const BaseUrl = BACKEND_URL + '/income';
+const BaseUrl = BACKEND_URL + '/income/';
 
 export const getIncomes = async () => {
   const response = await axios.get(`${BaseUrl}`);
