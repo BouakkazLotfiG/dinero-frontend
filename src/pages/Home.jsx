@@ -5,7 +5,9 @@ import { IconBellRinging, IconReceipt2 } from '@tabler/icons-react';
 import Expenses from './Expenses';
 import Income from './Income';
 import { Dashboard } from '../components/Dashboard';
+import Dash from './Dash';
 const data = [
+  { link: '/dashboard', label: 'Dashboard', icon: IconBellRinging },
   { link: '/expense', label: 'Expenses', icon: IconBellRinging },
   { link: '/income', label: 'Income', icon: IconReceipt2 },
 ];
@@ -17,11 +19,9 @@ function Home() {
       return <Expenses />;
     } else if (active === '/income') {
       return <Income />;
+    } else {
+      return <Dash />;
     }
-    // Add more conditions for other links if needed
-    // Example: else if (active === '/another-link') {
-    //   return <AnotherComponent />;
-    // }
   };
   return (
     <div className='flex  bg-gray-50 text-gray-800'>
