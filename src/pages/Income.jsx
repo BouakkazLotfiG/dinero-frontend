@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { addIncome, getIncomes } from '../api/IncomeApi';
+import { addIncome, deleteIncome, getIncomes } from '../api/IncomeApi';
 import { IconTrash } from '@tabler/icons-react';
 import { Button, TextInput } from '@mantine/core';
 import { Modal, Table } from '@mantine/core';
@@ -44,6 +44,16 @@ const Income = () => {
     }
   };
 
+  const deleteHandler = async (id) => {
+    console.log('id', id);
+    try {
+      await deleteIncome(id);
+      setRefresh(!refresh);
+    } catch (error) {
+      console.error('Error deleting expense:', error);
+    }
+  };
+
   const fetchExpenses = async () => {
     try {
       const response = await getIncomes();
@@ -75,14 +85,14 @@ const Income = () => {
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
-          {income.map((expense) => (
-            <Table.Tr key={expense.id}>
-              <Table.Td>{expense.id}</Table.Td>
-              <Table.Td>{expense.amount}</Table.Td>
-              <Table.Td>{expense.description}</Table.Td>
-              <Table.Td>{expense.date}</Table.Td>
-              <Table.Td className='text-red-500 text-center'>
-                <IconTrash />
+          {income.map((income) => (
+            <Table.Tr key={income.id}>
+              <Table.Td>{income.id}</Table.Td>
+              <Table.Td>{income.amount}</Table.Td>
+              <Table.Td>{income.description}</Table.Td>
+              <Table.Td>{income.date}</Table.Td>
+              <Table.Td className='text-red-500 text-center cursor-pointer'>
+                <IconTrash onClick={() => deleteHandler(income.id)} />
               </Table.Td>
             </Table.Tr>
           ))}

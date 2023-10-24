@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { addExpense, getExpenses } from '../api/ExpensesApi';
+import { addExpense, deleteExpense, getExpenses } from '../api/ExpensesApi';
 import { IconTrash } from '@tabler/icons-react';
 import { Button, TextInput } from '@mantine/core';
 import { Modal, Table } from '@mantine/core';
@@ -44,6 +44,16 @@ const Expenses = () => {
     }
   };
 
+  const deleteHandler = async (id) => {
+    console.log('id', id);
+    try {
+      await deleteExpense(id);
+      setRefresh(!refresh);
+    } catch (error) {
+      console.error('Error deleting expense:', error);
+    }
+  };
+
   const fetchExpenses = async () => {
     try {
       const response = await getExpenses();
@@ -82,8 +92,8 @@ const Expenses = () => {
               <Table.Td>{expense.amount}</Table.Td>
               <Table.Td>{expense.description}</Table.Td>
               <Table.Td>{expense.date}</Table.Td>
-              <Table.Td className='text-red-500 text-center'>
-                <IconTrash />
+              <Table.Td className='text-red-500 text-center cursor-pointer'>
+                <IconTrash onClick={() => deleteHandler(expense.id)} />
               </Table.Td>
             </Table.Tr>
           ))}

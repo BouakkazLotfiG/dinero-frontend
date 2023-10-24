@@ -13,9 +13,10 @@ export const addIncome = async (income) => {
   return response.data;
 };
 
-export const deleteIncome = async (incomeId) => {
-  const response = await axios.delete(`${BaseUrl}delete/${incomeId}`);
-  return response.data;
+export const deleteIncome = async (pk) => {
+  const response = await axios.delete(`${BaseUrl}delete/${pk}`);
+  console.log(response);
+  return response;
 };
 
 // get total income
