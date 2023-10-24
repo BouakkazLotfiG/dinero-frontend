@@ -71,7 +71,7 @@ const Income = () => {
   let content;
 
   if (loading) {
-    content = <p>Loading expenses...</p>;
+    content = <p>Loading income...</p>;
   } else {
     content = (
       <Table>
@@ -118,7 +118,7 @@ const Income = () => {
             radius='md'
             className='bg-orange-500'
           >
-            Add Income
+            Add an income
           </Button>
         </motion.div>
 

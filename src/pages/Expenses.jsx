@@ -119,7 +119,7 @@ const Expenses = () => {
             radius='md'
             className='bg-orange-500'
           >
-            Button
+            Add an expense
           </Button>
         </motion.div>
 

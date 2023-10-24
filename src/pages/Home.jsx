@@ -1,15 +1,21 @@
 import { useState } from 'react';
 
-import { IconBellRinging, IconReceipt2 } from '@tabler/icons-react';
+import {
+  IconBellRinging,
+  IconBuildingBank,
+  IconLayoutDashboard,
+  IconReceipt2,
+  IconWallet,
+} from '@tabler/icons-react';
 
 import Expenses from './Expenses';
 import Income from './Income';
 import { Dashboard } from '../components/Dashboard';
 import Dash from './Dash';
 const data = [
-  { link: '/dashboard', label: 'Dashboard', icon: IconBellRinging },
-  { link: '/expense', label: 'Expenses', icon: IconBellRinging },
-  { link: '/income', label: 'Income', icon: IconReceipt2 },
+  { link: '/dashboard', label: 'Dashboard', icon: IconLayoutDashboard },
+  { link: '/expense', label: 'Expenses', icon: IconBuildingBank },
+  { link: '/income', label: 'Income', icon: IconWallet },
 ];
 
 function Home() {
