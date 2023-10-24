@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { addExpense, getExpenses } from '../api/ExpensesApi';
 import { IconTrash } from '@tabler/icons-react';
-import { Button, Group, TextInput } from '@mantine/core';
+import { Button, TextInput } from '@mantine/core';
 import { Modal, Table } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
-import { DateInput, DatePickerInput } from '@mantine/dates';
+import { DatePickerInput } from '@mantine/dates';
+import { motion } from 'framer-motion';
 
 const Expenses = () => {
   const [expenses, setExpenses] = useState([]);
@@ -94,7 +95,12 @@ const Expenses = () => {
   return (
     <>
       <div className='flex flex-col p-8 gap-8'>
-        <div className='flex items-center justify-between'>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}
+          className='flex items-center justify-between'
+        >
           <h1 className='text-4xl'>Expenses</h1>
           <Button
             onClick={() => open()}
@@ -105,9 +111,16 @@ const Expenses = () => {
           >
             Button
           </Button>
-        </div>
+        </motion.div>
 
-        <div className='bg-white p-4 rounded-lg'>{content}</div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className='bg-white p-4 rounded-lg'
+        >
+          {content}
+        </motion.div>
       </div>
 
       {/* add modal */}

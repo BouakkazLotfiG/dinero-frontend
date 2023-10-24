@@ -2,11 +2,9 @@ import axios from 'axios';
 import { BACKEND_URL } from '../api';
 
 const BaseUrl = BACKEND_URL + '/expense/';
-console.log(BaseUrl);
 
 export const getExpenses = async () => {
   const response = await axios.get(`${BaseUrl}`);
-  console.log(response);
   return response.data;
 };
 

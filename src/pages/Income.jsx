@@ -1,64 +1,173 @@
-import React, { useEffect, useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import { addIncome, getIncomes } from '../api/IncomeApi';
 import { IconTrash } from '@tabler/icons-react';
-import { getIncomes } from '../api/IncomeApi';
+import { Button, TextInput } from '@mantine/core';
+import { Modal, Table } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
+import { DatePickerInput } from '@mantine/dates';
+import { motion } from 'framer-motion';
 
 const Income = () => {
   const [income, setIncome] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
+  const [date, setDate] = useState('');
 
-  const fetchIncome = async () => {
+  const form = useForm({
+    initialValues: {
+      description: '',
+      amount: '',
+      date: '',
+    },
+  });
+
+  const addHandler = async (values) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    const formatDate = `${year}-${month}-${day}`;
+    console.log(formatDate);
+    try {
+      const income = {
+        description: values.description,
+        amount: values.amount,
+        date: formatDate,
+      };
+
+      await addIncome(income);
+      setRefresh(!refresh);
+    } catch (error) {
+      console.error('Error adding expense:', error);
+    }
+  };
+
+  const fetchExpenses = async () => {
     try {
       const response = await getIncomes();
-      console.log('Expenses:', response);
       setIncome(response);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching Income:', error);
+      console.error('Error fetching income:', error);
     }
   };
 
   useEffect(() => {
-    fetchIncome();
+    fetchExpenses();
   }, [refresh]);
 
   let content;
 
   if (loading) {
-    content = <p>Loading Income...</p>;
+    content = <p>Loading expenses...</p>;
   } else {
     content = (
-      <table className='w-full'>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th>Id</Table.Th>
+            <Table.Th>Amount</Table.Th>
+            <Table.Th>Description</Table.Th>
+            <Table.Th>Date</Table.Th>
+            <Table.Th>Actions</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>
           {income.map((expense) => (
-            <tr className='text-center ' key={expense.id}>
-              <td>{expense.id}</td>
-              <td>{expense.amount}</td>
-              <td>{expense.description}</td>
-              <th className='text-red-500 text-center'>
+            <Table.Tr key={expense.id}>
+              <Table.Td>{expense.id}</Table.Td>
+              <Table.Td>{expense.amount}</Table.Td>
+              <Table.Td>{expense.description}</Table.Td>
+              <Table.Td>{expense.date}</Table.Td>
+              <Table.Td className='text-red-500 text-center'>
                 <IconTrash />
-              </th>
-            </tr>
+              </Table.Td>
+            </Table.Tr>
           ))}
-        </tbody>
-      </table>
+        </Table.Tbody>
+      </Table>
     );
   }
 
   return (
-    <div className='flex flex-col p-8 gap-8'>
-      <h1 className='text-4xl'>Income</h1>
-      <div className='bg-white p-4 rounded-lg'>{content}</div>
-    </div>
+    <>
+      <div className='flex flex-col p-8 gap-8'>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}
+          className='flex items-center justify-between'
+        >
+          <h1 className='text-4xl'>Income</h1>
+          <Button
+            onClick={() => open()}
+            variant='filled'
+            color='orange'
+            radius='md'
+            className='bg-orange-500'
+          >
+            Add Income
+          </Button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className='bg-white p-4 rounded-lg'
+        >
+          {content}
+        </motion.div>
+      </div>
+
+      {/* add modal */}
+      <Modal opened={opened} onClose={close} title='Add expense' centered>
+        <form
+          onSubmit={form.onSubmit((values) =>
+            addHandler(values).then((res) => {
+              close();
+            })
+          )}
+        >
+          <TextInput
+            label='Description'
+            placeholder='Description'
+            {...form.getInputProps('description')}
+          />
+          <TextInput
+            type='number'
+            label='Amount'
+            placeholder='Amount'
+            mt='md'
+            {...form.getInputProps('amount')}
+          />
+          <DatePickerInput
+            mt='md'
+            valueFormat='DD/MM/YYYY'
+            label='Pick date'
+            placeholder='Pick date'
+            value={date}
+            onChange={setDate}
+          />
+
+          <div className='flex mt-4 justify-end gap-2'>
+            <Button
+              onClick={() => form.reset()}
+              variant='subtle'
+              type='submit'
+              mt='md'
+            >
+              Cancel
+            </Button>
+            <Button type='submit' mt='md'>
+              Add income
+            </Button>
+          </div>
+        </form>
+      </Modal>
+    </>
   );
 };
 
