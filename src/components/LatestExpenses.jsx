@@ -1,4 +1,3 @@
-import React from 'react';
 import CardWithHeader from './CardWithHeader';
 
 const LatestExpenses = () => {
