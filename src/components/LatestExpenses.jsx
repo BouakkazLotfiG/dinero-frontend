@@ -1,7 +1,57 @@
+import { useEffect, useState } from 'react';
 import CardWithHeader from './CardWithHeader';
+import { getExpenses } from '../api/ExpensesApi';
+import { Table } from '@mantine/core';
 
 const LatestExpenses = () => {
-  return <CardWithHeader title='Latest Expenses'>sup</CardWithHeader>;
+  const [expenses, setExpenses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchExpenses = async () => {
+    try {
+      const response = await getExpenses();
+      console.log('Expenses:', response);
+      setExpenses(response);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching expenses:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchExpenses();
+  }, []);
+
+  let content;
+
+  if (loading) {
+    content = <p>Loading expenses...</p>;
+  } else {
+    content = (
+      <Table>
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th>Id</Table.Th>
+            <Table.Th>Amount</Table.Th>
+            <Table.Th>Description</Table.Th>
+            <Table.Th>Date</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>
+          {expenses.map((expense) => (
+            <Table.Tr key={expense.id}>
+              <Table.Td>{expense.id}</Table.Td>
+              <Table.Td>{expense.amount}</Table.Td>
+              <Table.Td>{expense.description}</Table.Td>
+              <Table.Td>{expense.date}</Table.Td>
+            </Table.Tr>
+          ))}
+        </Table.Tbody>
+      </Table>
+    );
+  }
+
+  return <CardWithHeader title='Latest Expenses'>{content}</CardWithHeader>;
 };
 
 export default LatestExpenses;

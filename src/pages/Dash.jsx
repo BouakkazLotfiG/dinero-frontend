@@ -12,11 +12,11 @@ import LatestExpenses from '../components/LatestExpenses';
 
 const Dash = () => {
   return (
-    <div className='flex flex-col gap-8 p-8'>
+    <div className=' flex flex-col gap-8 p-8'>
       <h1 className='text-4xl'>Welcome, Lotfi</h1>
 
       {/* top row */}
-      <div className='flex flex-row gap-4'>
+      <div className='flex flex-col md:flex-row gap-4 '>
         <CardStat
           title='Total Income'
           amount={123500.0}
