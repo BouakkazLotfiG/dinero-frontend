@@ -12,23 +12,30 @@ const Expenses = () => {
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
-  const [value, setValue] = useState('');
+  const [date, setDate] = useState('');
 
   const form = useForm({
     initialValues: {
       description: '',
       amount: '',
-      date: '2020-05-04',
+      date: '',
     },
   });
 
   const addHandler = async (values) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    const formatDate = `${year}-${month}-${day}`;
+    console.log(formatDate);
     try {
       const expense = {
         description: values.description,
         amount: values.amount,
-        date: value.split(':'),
+        date: formatDate,
       };
+      console.log('expense', expense);
       await addExpense(expense);
       setRefresh(!refresh);
     } catch (error) {
@@ -63,6 +70,7 @@ const Expenses = () => {
             <Table.Th>Id</Table.Th>
             <Table.Th>Amount</Table.Th>
             <Table.Th>Description</Table.Th>
+            <Table.Th>Date</Table.Th>
             <Table.Th>Actions</Table.Th>
           </Table.Tr>
         </Table.Thead>
@@ -72,6 +80,7 @@ const Expenses = () => {
               <Table.Td>{expense.id}</Table.Td>
               <Table.Td>{expense.amount}</Table.Td>
               <Table.Td>{expense.description}</Table.Td>
+              <Table.Td>{expense.date}</Table.Td>
               <Table.Td className='text-red-500 text-center'>
                 <IconTrash />
               </Table.Td>
@@ -123,11 +132,12 @@ const Expenses = () => {
             {...form.getInputProps('amount')}
           />
           <DatePickerInput
-            valueFormat='YYYY-MMM-DD'
+            mt='md'
+            valueFormat='DD/MM/YYYY'
             label='Pick date'
             placeholder='Pick date'
-            value={value}
-            onChange={setValue}
+            value={date}
+            onChange={setDate}
           />
 
           <div className='flex mt-4 justify-end gap-2'>
