@@ -3,7 +3,7 @@ import React from 'react';
 
 const CardWithHeader = ({ title, icon, children }) => {
   return (
-    <div className='w-full  bg-white border border-gray-200 rounded-md flex  flex-col items-start '>
+    <div className='   w-full   bg-white border border-gray-200 rounded-md flex  flex-col items-start '>
       <div className='border-b w-full'>
         <div className='p-4 flex items-center gap-2'>
           {/* render icon here */}
@@ -14,7 +14,9 @@ const CardWithHeader = ({ title, icon, children }) => {
           <IconChevronRight className='text-gray-400 ml-auto' />
         </div>
       </div>
-      <div className='p-4 flex flex-col gap-3'>{children}</div>
+      <div className='p-4 flex flex-col gap-3 w-full overflow-x-auto'>
+        {children}
+      </div>
     </div>
   );
 };
