@@ -10,7 +10,7 @@ import React from 'react';
 const CardStat = ({ title, amount, change }) => {
   return (
     <ActionIcon
-      className='h-full bg-white border border-gray-300 w-full flex  flex-col items-start '
+      className='h-full bg-white border border-gray-200 w-full flex  flex-col items-start '
       radius='md'
       variant='filled'
     >
@@ -22,7 +22,7 @@ const CardStat = ({ title, amount, change }) => {
 
           <p className='text-black'>{title}</p>
 
-          <IconChevronRight className='text-gray-500 ml-auto' />
+          <IconChevronRight className='text-gray-400 ml-auto' />
         </div>
       </div>
 
@@ -31,7 +31,7 @@ const CardStat = ({ title, amount, change }) => {
         <p
           className={`${
             change > 0 ? 'bg-green-600' : 'bg-red-500'
-          } p-2 opacity-50 rounded-md mx-auto ml-0`}
+          } px-2 py-1 opacity-50 rounded-md mx-auto ml-0 font-thin text-xs`}
         >
           {change} %
         </p>
