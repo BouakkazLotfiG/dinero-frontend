@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { addExpense, deleteExpense, getExpenses } from '../api/ExpensesApi';
 import { IconTrash } from '@tabler/icons-react';
 import { Badge, Button, Radio, TextInput } from '@mantine/core';
 import { Modal, Table } from '@mantine/core';
