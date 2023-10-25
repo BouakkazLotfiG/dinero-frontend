@@ -28,26 +28,28 @@ const LatestExpenses = () => {
     content = <p>Loading expenses...</p>;
   } else {
     content = (
-      <Table>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Id</Table.Th>
-            <Table.Th>Amount</Table.Th>
-            <Table.Th>Description</Table.Th>
-            <Table.Th>Date</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>
-          {expenses.map((expense) => (
-            <Table.Tr key={expense.id}>
-              <Table.Td>{expense.id}</Table.Td>
-              <Table.Td>{expense.amount}</Table.Td>
-              <Table.Td>{expense.description}</Table.Td>
-              <Table.Td>{expense.date}</Table.Td>
+      <div className='h-36'>
+        <Table>
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th>Id</Table.Th>
+              <Table.Th>Amount</Table.Th>
+              <Table.Th>Description</Table.Th>
+              <Table.Th>Date</Table.Th>
             </Table.Tr>
-          ))}
-        </Table.Tbody>
-      </Table>
+          </Table.Thead>
+          <Table.Tbody>
+            {expenses.map((expense) => (
+              <Table.Tr key={expense.id}>
+                <Table.Td>{expense.id}</Table.Td>
+                <Table.Td>{expense.amount}</Table.Td>
+                <Table.Td>{expense.description}</Table.Td>
+                <Table.Td>{expense.date}</Table.Td>
+              </Table.Tr>
+            ))}
+          </Table.Tbody>
+        </Table>
+      </div>
     );
   }
 

@@ -114,9 +114,8 @@ const Income = () => {
           <Button
             onClick={() => open()}
             variant='filled'
-            color='orange'
             radius='md'
-            className='bg-orange-500'
+            className='bg-indigo-500'
           >
             Add an income
           </Button>
@@ -155,9 +154,8 @@ const Income = () => {
           />
           <DatePickerInput
             mt='md'
-            valueFormat='DD/MM/YYYY'
-            label='Pick date'
-            placeholder='Pick date'
+            label='Date'
+            placeholder='Date'
             value={date}
             onChange={setDate}
           />
@@ -167,11 +165,18 @@ const Income = () => {
               onClick={() => form.reset()}
               variant='subtle'
               type='submit'
+              radius='md'
               mt='md'
             >
               Cancel
             </Button>
-            <Button type='submit' mt='md'>
+            <Button
+              variant='filled'
+              radius='md'
+              className='bg-indigo-500'
+              type='submit'
+              mt='md'
+            >
               Add income
             </Button>
           </div>

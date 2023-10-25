@@ -117,7 +117,7 @@ const Expenses = () => {
             variant='filled'
             color='orange'
             radius='md'
-            className='bg-orange-500'
+            className='bg-indigo-500'
           >
             Add an expense
           </Button>
@@ -168,12 +168,19 @@ const Expenses = () => {
               onClick={() => form.reset()}
               variant='subtle'
               type='submit'
+              radius='md'
               mt='md'
             >
-              Annuler
+              Cancel
             </Button>
-            <Button type='submit' mt='md'>
-              Ajouter
+            <Button
+              variant='filled'
+              radius='md'
+              className='bg-indigo-500'
+              type='submit'
+              mt='md'
+            >
+              Add expense
             </Button>
           </div>
         </form>

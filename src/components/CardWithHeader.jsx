@@ -14,7 +14,7 @@ const CardWithHeader = ({ title, icon, children }) => {
           <IconChevronRight className='text-gray-400 ml-auto' />
         </div>
       </div>
-      <div className='p-4 flex flex-col gap-3 w-full overflow-x-auto'>
+      <div className='p-4 flex flex-col gap-3 w-full overflow-x-auto overflow-y-auto'>
         {children}
       </div>
     </div>

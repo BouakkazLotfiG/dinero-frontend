@@ -4,7 +4,7 @@ import { IconUser, IconWallet } from '@tabler/icons-react';
 export function Dashboard({ data, active, setActive }) {
   const links = data.map((item) => (
     <a
-      className={`relative flex flex-row items-center h-11 focus:outline-none hover:bg-indigo-100 text-gray-600 hover:text-indigo-700 transition ease-in-out duration-200  rounded-xl pr-6 ${
+      className={`relative flex flex-row items-center h-11 focus:outline-none hover:bg-indigo-100 text-gray-600 hover:text-indigo-700 transition ease-in-out duration-200  rounded-md pr-6 ${
         item.link === active ? 'bg-indigo-100 text-indigo-700' : ''
       }`}
       href={item.link}
