@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { addExpense, deleteExpense, getExpenses } from '../api/ExpensesApi';
 import { IconTrash } from '@tabler/icons-react';
-import { Button, TextInput } from '@mantine/core';
+import { Button, Pagination, TextInput } from '@mantine/core';
 import { Modal, Table } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
@@ -10,10 +10,14 @@ import { motion } from 'framer-motion';
 
 const Expenses = () => {
   const [expenses, setExpenses] = useState([]);
+  const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [refresh, setRefresh] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
   const [date, setDate] = useState('');
+
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 5;
 
   const form = useForm({
     initialValues: {
@@ -56,9 +60,11 @@ const Expenses = () => {
 
   const fetchExpenses = async () => {
     try {
-      const response = await getExpenses();
-      console.log('Expenses:', response);
-      setExpenses(response);
+      const response = await getExpenses(page, itemsPerPage);
+      console.log('Expenses:', response.results);
+      setExpenses(response.results);
+      console.log('count', Math.floor(response.count / itemsPerPage));
+      setCount(response.count);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching expenses:', error);
@@ -67,7 +73,12 @@ const Expenses = () => {
 
   useEffect(() => {
     fetchExpenses();
-  }, [refresh]);
+  }, [refresh, page]);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+    setRefresh(!refresh);
+  };
 
   let content;
 
@@ -104,7 +115,7 @@ const Expenses = () => {
 
   return (
     <>
-      <div className='flex flex-col p-8 gap-8'>
+      <div className='flex h-screen flex-col p-8 gap-8'>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -131,6 +142,14 @@ const Expenses = () => {
         >
           {content}
         </motion.div>
+        <Pagination
+          className='mt-auto mx-auto '
+          color='indigo'
+          page={page}
+          onChange={handlePageChange}
+          total={Math.floor(count / itemsPerPage) + 1}
+          itemsPerPage={itemsPerPage}
+        />
       </div>
 
       {/* add modal */}

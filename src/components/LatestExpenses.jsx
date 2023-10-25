@@ -11,7 +11,7 @@ const LatestExpenses = () => {
     try {
       const response = await getExpenses();
       console.log('Expenses:', response);
-      setExpenses(response);
+      setExpenses(response.results);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching expenses:', error);
