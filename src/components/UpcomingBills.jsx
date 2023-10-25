@@ -27,7 +27,8 @@ const UpcomingBills = () => {
     try {
       const response = await getBills();
       console.log('bills:', response);
-      setBills(response);
+      const filteredBills = response.filter((bill) => bill.status === 'unpaid');
+      setBills(filteredBills);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching bills:', error);
