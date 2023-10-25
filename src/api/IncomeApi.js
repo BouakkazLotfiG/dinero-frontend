@@ -3,8 +3,11 @@ import { BACKEND_URL } from '../api';
 
 const BaseUrl = BACKEND_URL + '/income/';
 
-export const getIncomes = async () => {
-  const response = await axios.get(`${BaseUrl}`);
+export const getIncomes = async (page) => {
+  const apiUrl = `${BaseUrl}?page=${page}`;
+
+  const response = await axios.get(apiUrl);
+  console.log(response);
   return response.data;
 };
 

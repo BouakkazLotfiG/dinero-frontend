@@ -9,7 +9,7 @@ const LatestExpenses = () => {
 
   const fetchExpenses = async () => {
     try {
-      const response = await getExpenses();
+      const response = await getExpenses(1, 5);
       console.log('Expenses:', response);
       setExpenses(response.results);
       setLoading(false);

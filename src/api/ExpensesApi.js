@@ -3,7 +3,7 @@ import { BACKEND_URL } from '../api';
 
 const BaseUrl = BACKEND_URL + '/expense/';
 
-export const getExpenses = async (page, itemsPerPage) => {
+export const getExpenses = async (page) => {
   const apiUrl = `${BaseUrl}?page=${page}`; // Adjust the URL and query parameters as per your backend API
 
   const response = await axios.get(apiUrl);

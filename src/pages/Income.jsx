@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { addIncome, deleteIncome, getIncomes } from '../api/IncomeApi';
 import { IconTrash } from '@tabler/icons-react';
-import { Button, TextInput } from '@mantine/core';
+import { Button, Pagination, TextInput } from '@mantine/core';
 import { Modal, Table } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
@@ -11,9 +11,13 @@ import { motion } from 'framer-motion';
 const Income = () => {
   const [income, setIncome] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [count, setCount] = useState(0);
   const [refresh, setRefresh] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
   const [date, setDate] = useState('');
+
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 5;
 
   const form = useForm({
     initialValues: {
@@ -54,19 +58,27 @@ const Income = () => {
     }
   };
 
-  const fetchExpenses = async () => {
+  const fetchIncome = async () => {
     try {
-      const response = await getIncomes();
-      setIncome(response);
+      const response = await getIncomes(page, itemsPerPage);
+      console.log('response:', response.results);
+      setIncome(response.results);
+      console.log('count', Math.floor(response.count / itemsPerPage));
+      setCount(response.count);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching income:', error);
+      console.error('Error fetching expenses:', error);
     }
   };
 
   useEffect(() => {
-    fetchExpenses();
-  }, [refresh]);
+    fetchIncome();
+  }, [refresh, page]);
+
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
+    setRefresh(!refresh);
+  };
 
   let content;
 
@@ -103,7 +115,7 @@ const Income = () => {
 
   return (
     <>
-      <div className='flex flex-col p-8 gap-8'>
+      <div className='h-screen flex flex-col p-8 gap-8'>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -129,6 +141,14 @@ const Income = () => {
         >
           {content}
         </motion.div>
+        <Pagination
+          className='mt-auto mx-auto '
+          color='indigo'
+          page={page}
+          onChange={handlePageChange}
+          total={Math.floor(count / itemsPerPage) + 1}
+          itemsPerPage={itemsPerPage}
+        />
       </div>
 
       {/* add modal */}
