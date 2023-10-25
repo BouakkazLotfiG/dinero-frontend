@@ -15,7 +15,7 @@ const UpcomingBills = () => {
           <div className='flex gap-2 w-full'>
             <CardWithHeader title='Amazon'>
               <p className='text-black font-bold'>$ 100</p>
-              <p className='text-gray-400 text-sm'>Rent</p>
+              <p className='text-gray-400 text-sm'>17 july 2023</p>
             </CardWithHeader>
             <CardWithHeader title='Netflix'>
               <p className='text-black font-bold'>$ 100</p>

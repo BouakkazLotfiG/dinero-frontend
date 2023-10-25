@@ -12,10 +12,12 @@ import Expenses from './Expenses';
 import Income from './Income';
 import { Dashboard } from '../components/Dashboard';
 import Dash from './Dash';
+import Bills from './Bills';
 const data = [
   { link: '/dashboard', label: 'Dashboard', icon: IconLayoutDashboard },
   { link: '/expense', label: 'Expenses', icon: IconBuildingBank },
   { link: '/income', label: 'Income', icon: IconWallet },
+  { link: '/bills', label: 'Bills', icon: IconReceipt2 },
 ];
 
 function Home() {
@@ -25,6 +27,8 @@ function Home() {
       return <Expenses />;
     } else if (active === '/income') {
       return <Income />;
+    } else if (active === '/bills') {
+      return <Bills />;
     } else {
       return <Dash />;
     }
