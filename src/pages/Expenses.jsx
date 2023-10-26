@@ -86,7 +86,7 @@ const Expenses = () => {
     content = <p>Loading expenses...</p>;
   } else {
     content = (
-      <Table>
+      <Table className=''>
         <Table.Thead>
           <Table.Tr>
             <Table.Th>Id</Table.Th>
@@ -115,14 +115,14 @@ const Expenses = () => {
 
   return (
     <>
-      <div className='flex h-screen flex-col p-8 gap-8'>
+      <div className='flex h-screen flex-col p-4 md:p-8 gap-4 md:gap-8 '>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}
-          className='flex items-center justify-between'
+          className='flex flex-col md:flex-row md:items-center md:justify-between gap-2'
         >
-          <h1 className='text-4xl'>Expenses</h1>
+          <h1 className='text-xl md:text-4xl'>Expenses</h1>
           <Button
             onClick={() => open()}
             variant='filled'
@@ -138,7 +138,7 @@ const Expenses = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
-          className='bg-white p-4 rounded-lg'
+          className='bg-white p-4 rounded-lg w-58 overflow-x-scroll'
         >
           {content}
         </motion.div>

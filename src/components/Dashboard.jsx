@@ -24,7 +24,7 @@ export function Dashboard({ data, active, setActive }) {
   ));
 
   return (
-    <div className=' h-screen flex flex-col px-2 md:px-4 lg:px-12  bg-white  border-r'>
+    <div className='fixed w-20 md:w-72 h-screen flex flex-col px-2 md:px-4 lg:px-12  bg-white  border-r'>
       <div className='hidden md:flex flex-col justify-center items-center mt-20'>
         <Avatar size='xl' src={null} alt='no image here' />
         <p className='text-gray-400 mt-3'>Welcome,</p>
